@@ -1,0 +1,27 @@
+﻿@using DojoApplicationWeb.Models
+@{
+    ViewBag.Title = "Index";
+    List<PuntajeModel> listaRetos = (List<PuntajeModel>)ViewBag.ListaPuntajes;
+}
+
+<h2>Puntajes Calificados</h2>
+
+@*<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <td>@Html.LabelFor(p => listaRetos[0].Id)</td>
+            <td>@Html.LabelFor(p => listaRetos[0].Nombre)</td>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nombre</td>
+            </tr>
+        }
+    </tbody>
+</table>*@

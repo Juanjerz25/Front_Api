@@ -1,0 +1,34 @@
+﻿@using DojoApplicationWeb.Models
+
+@model List<DojoModel>
+@{
+    ViewBag.Title = "Dojo";
+}
+
+<h2>Lista Dojo</h2>
+@Html.ActionLink("Agregar Dojo", "AgregarDojo", "Home", null, new { @class = "btn btn-primary" })
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <td>@Html.LabelFor(p => Model[0].Id)</td>
+            <td>@Html.LabelFor(p => Model[0].Nombre)</td>
+            <td>Operaciones</td>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nombre</td>
+                <td>
+                    @Html.ActionLink(" ", "EditarDojo", "Home", item, new { @class = "glyphicon glyphicon-edit btn btn-primary" })
+                    @Html.ActionLink(" ", "EliminarDojoFront", "Home", item, new { @class = "glyphicon glyphicon-trash btn btn-danger"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

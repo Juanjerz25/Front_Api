@@ -1,0 +1,30 @@
+﻿@using DojoApplicationWeb.Models
+@model List<MiembroModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista Miembros</h2>
+@Html.ActionLink("Agregar Miembro", "AgregarMiembro", "Miembro", null, new { @class = "btn btn-primary" })
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <td>@Html.LabelFor(p => Model[0].Id)</td>
+            <td>@Html.LabelFor(p => Model[0].Nombre)</td>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nombre</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

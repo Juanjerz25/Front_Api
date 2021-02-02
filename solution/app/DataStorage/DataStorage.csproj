@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{35B5AF12-26CB-4FD4-AD3A-ED9E3360D70B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataStorage</RootNamespace>
+    <AssemblyName>DataStorage</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess\PuntajeAccess.cs" />
+    <Compile Include="DataAccess\DojoAccess .cs" />
+    <Compile Include="DataAccess\DojoMiembroAccess.cs" />
+    <Compile Include="DataAccess\RetoMiembroAccess.cs" />
+    <Compile Include="DataAccess\RetoAccess.cs" />
+    <Compile Include="DataAccess\MiembroAccess.cs" />
+    <Compile Include="Dojo.cs">
+      <DependentUpon>DojoApplicationDataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DojoApplicationEntities.cs" />
+    <Compile Include="DojoApplicationDataBaseModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DojoApplicationDataBaseModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DojoApplicationDataBaseModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DojoApplicationDataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DojoApplicationDataBaseModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DojoApplicationDataBaseModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DojoMiembro.cs">
+      <DependentUpon>DojoApplicationDataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Miembro.cs">
+      <DependentUpon>DojoApplicationDataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Puntaje.cs">
+      <DependentUpon>DojoApplicationDataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reto.cs">
+      <DependentUpon>DojoApplicationDataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RetoMiembro.cs">
+      <DependentUpon>DojoApplicationDataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrammeworkTypeUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="DojoApplicationDataBaseModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DojoApplicationDataBaseModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="DojoApplicationDataBaseModel.edmx.diagram">
+      <DependentUpon>DojoApplicationDataBaseModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DojoApplicationDataBaseModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DojoApplicationDataBaseModel.Context.cs</LastGenOutput>
+      <DependentUpon>DojoApplicationDataBaseModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="DojoApplicationDataBaseModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DojoApplicationDataBaseModel.edmx</DependentUpon>
+      <LastGenOutput>DojoApplicationDataBaseModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

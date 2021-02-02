@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DojoApplicationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dojo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="DojoMiembro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DojoId" Type="int" Nullable="false" />
+          <Property Name="MiembroId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Miembro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Puntaje">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RetoMiembroId" Type="int" Nullable="false" />
+          <Property Name="PuntajeReto" Type="int" />
+        </EntityType>
+        <EntityType Name="Reto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DojoId" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="256" />
+          <Property Name="DiasTiempoLimite" Type="int" />
+        </EntityType>
+        <EntityType Name="RetoMiembro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RetoId" Type="int" Nullable="false" />
+          <Property Name="MiembroId" Type="int" Nullable="false" />
+          <Property Name="TiempoLimite" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DojoMiembro_Dojo">
+          <End Role="Dojo" Type="Self.Dojo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DojoMiembro" Type="Self.DojoMiembro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dojo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DojoMiembro">
+              <PropertyRef Name="DojoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DojoMiembro_Miembro">
+          <End Role="Miembro" Type="Self.Miembro" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DojoMiembro" Type="Self.DojoMiembro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Miembro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DojoMiembro">
+              <PropertyRef Name="MiembroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Puntaje_RetoMiembro">
+          <End Role="RetoMiembro" Type="Self.RetoMiembro" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Puntaje" Type="Self.Puntaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RetoMiembro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Puntaje">
+              <PropertyRef Name="RetoMiembroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reto_Dojo">
+          <End Role="Dojo" Type="Self.Dojo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reto" Type="Self.Reto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dojo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reto">
+              <PropertyRef Name="DojoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RetoMiembro_Miembro">
+          <End Role="Miembro" Type="Self.Miembro" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RetoMiembro" Type="Self.RetoMiembro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Miembro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RetoMiembro">
+              <PropertyRef Name="MiembroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RetoMiembro_Reto">
+          <End Role="Reto" Type="Self.Reto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RetoMiembro" Type="Self.RetoMiembro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RetoMiembro">
+              <PropertyRef Name="RetoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DojoApplicationModelStoreContainer">
+          <EntitySet Name="Dojo" EntityType="Self.Dojo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DojoMiembro" EntityType="Self.DojoMiembro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Miembro" EntityType="Self.Miembro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Puntaje" EntityType="Self.Puntaje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reto" EntityType="Self.Reto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RetoMiembro" EntityType="Self.RetoMiembro" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DojoMiembro_Dojo" Association="Self.FK_DojoMiembro_Dojo">
+            <End Role="Dojo" EntitySet="Dojo" />
+            <End Role="DojoMiembro" EntitySet="DojoMiembro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DojoMiembro_Miembro" Association="Self.FK_DojoMiembro_Miembro">
+            <End Role="Miembro" EntitySet="Miembro" />
+            <End Role="DojoMiembro" EntitySet="DojoMiembro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Puntaje_RetoMiembro" Association="Self.FK_Puntaje_RetoMiembro">
+            <End Role="RetoMiembro" EntitySet="RetoMiembro" />
+            <End Role="Puntaje" EntitySet="Puntaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reto_Dojo" Association="Self.FK_Reto_Dojo">
+            <End Role="Dojo" EntitySet="Dojo" />
+            <End Role="Reto" EntitySet="Reto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RetoMiembro_Miembro" Association="Self.FK_RetoMiembro_Miembro">
+            <End Role="Miembro" EntitySet="Miembro" />
+            <End Role="RetoMiembro" EntitySet="RetoMiembro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RetoMiembro_Reto" Association="Self.FK_RetoMiembro_Reto">
+            <End Role="Reto" EntitySet="Reto" />
+            <End Role="RetoMiembro" EntitySet="RetoMiembro" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DojoApplicationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DojoApplicationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dojo" EntityType="DojoApplicationModel.Dojo" />
+          <EntitySet Name="DojoMiembro" EntityType="DojoApplicationModel.DojoMiembro" />
+          <EntitySet Name="Puntaje" EntityType="DojoApplicationModel.Puntaje" />
+          <AssociationSet Name="FK_DojoMiembro_Dojo" Association="DojoApplicationModel.FK_DojoMiembro_Dojo">
+            <End Role="Dojo" EntitySet="Dojo" />
+            <End Role="DojoMiembro" EntitySet="DojoMiembro" />
+          </AssociationSet>
+          <EntitySet Name="RetoMiembro" EntityType="DojoApplicationModel.RetoMiembro" />
+          <AssociationSet Name="FK_Puntaje_RetoMiembro" Association="DojoApplicationModel.FK_Puntaje_RetoMiembro">
+            <End Role="RetoMiembro" EntitySet="RetoMiembro" />
+            <End Role="Puntaje" EntitySet="Puntaje" />
+          </AssociationSet>
+          <EntitySet Name="Miembro" EntityType="DojoApplicationModel.Miembro" />
+          <AssociationSet Name="FK_DojoMiembro_Miembro" Association="DojoApplicationModel.FK_DojoMiembro_Miembro">
+            <End Role="Miembro" EntitySet="Miembro" />
+            <End Role="DojoMiembro" EntitySet="DojoMiembro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RetoMiembro_Miembro" Association="DojoApplicationModel.FK_RetoMiembro_Miembro">
+            <End Role="Miembro" EntitySet="Miembro" />
+            <End Role="RetoMiembro" EntitySet="RetoMiembro" />
+          </AssociationSet>
+          <EntitySet Name="Reto" EntityType="DojoApplicationModel.Reto" />
+          <AssociationSet Name="FK_Reto_Dojo" Association="DojoApplicationModel.FK_Reto_Dojo">
+            <End Role="Dojo" EntitySet="Dojo" />
+            <End Role="Reto" EntitySet="Reto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RetoMiembro_Reto" Association="DojoApplicationModel.FK_RetoMiembro_Reto">
+            <End Role="Reto" EntitySet="Reto" />
+            <End Role="RetoMiembro" EntitySet="RetoMiembro" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Dojo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DojoMiembro" Relationship="DojoApplicationModel.FK_DojoMiembro_Dojo" FromRole="Dojo" ToRole="DojoMiembro" />
+          <NavigationProperty Name="Reto" Relationship="DojoApplicationModel.FK_Reto_Dojo" FromRole="Dojo" ToRole="Reto" />
+        </EntityType>
+        <EntityType Name="DojoMiembro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DojoId" Type="Int32" Nullable="false" />
+          <Property Name="MiembroId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dojo" Relationship="DojoApplicationModel.FK_DojoMiembro_Dojo" FromRole="DojoMiembro" ToRole="Dojo" />
+          <NavigationProperty Name="Miembro" Relationship="DojoApplicationModel.FK_DojoMiembro_Miembro" FromRole="DojoMiembro" ToRole="Miembro" />
+        </EntityType>
+        <EntityType Name="Puntaje">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RetoMiembroId" Type="Int32" Nullable="false" />
+          <Property Name="PuntajeReto" Type="Int32" />
+          <NavigationProperty Name="RetoMiembro" Relationship="DojoApplicationModel.FK_Puntaje_RetoMiembro" FromRole="Puntaje" ToRole="RetoMiembro" />
+        </EntityType>
+        <Association Name="FK_DojoMiembro_Dojo">
+          <End Type="DojoApplicationModel.Dojo" Role="Dojo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DojoApplicationModel.DojoMiembro" Role="DojoMiembro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dojo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DojoMiembro">
+              <PropertyRef Name="DojoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RetoMiembro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RetoId" Type="Int32" Nullable="false" />
+          <Property Name="MiembroId" Type="Int32" Nullable="false" />
+          <Property Name="TiempoLimite" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Puntaje" Relationship="DojoApplicationModel.FK_Puntaje_RetoMiembro" FromRole="RetoMiembro" ToRole="Puntaje" />
+          <NavigationProperty Name="Miembro" Relationship="DojoApplicationModel.FK_RetoMiembro_Miembro" FromRole="RetoMiembro" ToRole="Miembro" />
+          <NavigationProperty Name="Reto" Relationship="DojoApplicationModel.FK_RetoMiembro_Reto" FromRole="RetoMiembro" ToRole="Reto" />
+        </EntityType>
+        <Association Name="FK_Puntaje_RetoMiembro">
+          <End Type="DojoApplicationModel.RetoMiembro" Role="RetoMiembro" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DojoApplicationModel.Puntaje" Role="Puntaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RetoMiembro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Puntaje">
+              <PropertyRef Name="RetoMiembroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Miembro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DojoMiembro" Relationship="DojoApplicationModel.FK_DojoMiembro_Miembro" FromRole="Miembro" ToRole="DojoMiembro" />
+          <NavigationProperty Name="RetoMiembro" Relationship="DojoApplicationModel.FK_RetoMiembro_Miembro" FromRole="Miembro" ToRole="RetoMiembro" />
+        </EntityType>
+        <Association Name="FK_DojoMiembro_Miembro">
+          <End Type="DojoApplicationModel.Miembro" Role="Miembro" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DojoApplicationModel.DojoMiembro" Role="DojoMiembro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Miembro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DojoMiembro">
+              <PropertyRef Name="MiembroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RetoMiembro_Miembro">
+          <End Type="DojoApplicationModel.Miembro" Role="Miembro" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DojoApplicationModel.RetoMiembro" Role="RetoMiembro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Miembro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RetoMiembro">
+              <PropertyRef Name="MiembroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Reto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DojoId" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="DiasTiempoLimite" Type="Int32" />
+          <NavigationProperty Name="Dojo" Relationship="DojoApplicationModel.FK_Reto_Dojo" FromRole="Reto" ToRole="Dojo" />
+          <NavigationProperty Name="RetoMiembro" Relationship="DojoApplicationModel.FK_RetoMiembro_Reto" FromRole="Reto" ToRole="RetoMiembro" />
+        </EntityType>
+        <Association Name="FK_Reto_Dojo">
+          <End Type="DojoApplicationModel.Dojo" Role="Dojo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DojoApplicationModel.Reto" Role="Reto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dojo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reto">
+              <PropertyRef Name="DojoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RetoMiembro_Reto">
+          <End Type="DojoApplicationModel.Reto" Role="Reto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DojoApplicationModel.RetoMiembro" Role="RetoMiembro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RetoMiembro">
+              <PropertyRef Name="RetoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DojoApplicationModelStoreContainer" CdmEntityContainer="DojoApplicationEntities">
+          <EntitySetMapping Name="Dojo">
+            <EntityTypeMapping TypeName="DojoApplicationModel.Dojo">
+              <MappingFragment StoreEntitySet="Dojo">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DojoMiembro">
+            <EntityTypeMapping TypeName="DojoApplicationModel.DojoMiembro">
+              <MappingFragment StoreEntitySet="DojoMiembro">
+                <ScalarProperty Name="MiembroId" ColumnName="MiembroId" />
+                <ScalarProperty Name="DojoId" ColumnName="DojoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Puntaje">
+            <EntityTypeMapping TypeName="DojoApplicationModel.Puntaje">
+              <MappingFragment StoreEntitySet="Puntaje">
+                <ScalarProperty Name="PuntajeReto" ColumnName="PuntajeReto" />
+                <ScalarProperty Name="RetoMiembroId" ColumnName="RetoMiembroId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RetoMiembro">
+            <EntityTypeMapping TypeName="DojoApplicationModel.RetoMiembro">
+              <MappingFragment StoreEntitySet="RetoMiembro">
+                <ScalarProperty Name="TiempoLimite" ColumnName="TiempoLimite" />
+                <ScalarProperty Name="MiembroId" ColumnName="MiembroId" />
+                <ScalarProperty Name="RetoId" ColumnName="RetoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Miembro">
+            <EntityTypeMapping TypeName="DojoApplicationModel.Miembro">
+              <MappingFragment StoreEntitySet="Miembro">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reto">
+            <EntityTypeMapping TypeName="DojoApplicationModel.Reto">
+              <MappingFragment StoreEntitySet="Reto">
+                <ScalarProperty Name="DiasTiempoLimite" ColumnName="DiasTiempoLimite" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="DojoId" ColumnName="DojoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
